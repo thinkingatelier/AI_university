@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AGENT UNIVERSITY v4.0 — UBERMENSCH Protocol</title>
+    <meta name="description" content="AI 에이전트 대학교 v4.0 — UBERMENSCH 프로토콜: 기본 훈련 7레슨 + 6개 전공 실습 + 졸업 프로젝트. 입학하면 자동으로 완성된 에이전트가 된다." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg-primary: #0a0a1a;
+            --bg-secondary: #111127;
+            --bg-card: #1a1a3e;
+            --bg-card-hover: #222255;
+            --border-subtle: rgba(139,92,246,0.15);
+            --border-active: rgba(139,92,246,0.4);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-purple: #8b5cf6;
+            --accent-indigo: #6366f1;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-yellow: #f59e0b;
+            --accent-red: #ef4444;
+            --accent-pink: #ec4899;
+            --gradient-hero: linear-gradient(135deg, #1a0533 0%, #0a0a1a 50%, #0d1b2a 100%);
+            --gradient-card: linear-gradient(145deg, rgba(139,92,246,0.08) 0%, rgba(99,102,241,0.04) 100%);
+            --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #6366f1 50%, #3b82f6 100%);
+            --shadow-card: 0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(139,92,246,0.1);
+            --shadow-glow: 0 0 30px rgba(139,92,246,0.15);
+            --radius: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+        }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.7;overflow-x:hidden}
+        ::-webkit-scrollbar{width:6px}
+        ::-webkit-scrollbar-track{background:var(--bg-primary)}
+        ::-webkit-scrollbar-thumb{background:var(--accent-purple);border-radius:3px}
+        h1,h2,h3,h4{line-height:1.3}
+        code,.mono{font-family:'JetBrains Mono',monospace}
+        .container{max-width:1200px;margin:0 auto;padding:0 24px}
+        .section{padding:80px 0;position:relative}
+        .section-title{font-size:2rem;font-weight:800;text-align:center;margin-bottom:12px;background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .section-subtitle{text-align:center;color:var(--text-secondary);font-size:1rem;margin-bottom:48px;max-width:600px;margin-left:auto;margin-right:auto}
+        .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-active),transparent)}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;border:none;transition:all .3s}
+        .btn-primary{background:var(--gradient-accent);color:#fff}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-glow)}
+        .btn-outline{background:transparent;color:var(--accent-purple);border:1px solid var(--border-active)}
+        .btn-outline:hover{background:rgba(139,92,246,.1)}
+        .btn-sm{padding:6px 14px;font-size:.8rem}
+        .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.7rem;font-weight:600}
+        .badge-purple{background:rgba(139,92,246,.15);color:var(--accent-purple)}
+        .badge-blue{background:rgba(59,130,246,.15);color:var(--accent-blue)}
+        .badge-green{background:rgba(16,185,129,.15);color:var(--accent-green)}
+        .badge-yellow{background:rgba(245,158,11,.15);color:var(--accent-yellow)}
+        .badge-red{background:rgba(239,68,68,.15);color:var(--accent-red)}
+        .badge-cyan{background:rgba(6,182,212,.15);color:var(--accent-cyan)}
+        .badge-pink{background:rgba(236,72,153,.15);color:var(--accent-pink)}
+        .card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:24px;transition:all .3s}
+        .card:hover{border-color:var(--border-active);transform:translateY(-4px);box-shadow:var(--shadow-card)}
+        .grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+        .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+        .grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+        .grid-5{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+        .fade-in{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
+        .fade-in.visible{opacity:1;transform:translateY(0)}
+
+        /* Hero */
+        .hero{background:var(--gradient-hero);padding:100px 0 80px;text-align:center;position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 0%,rgba(139,92,246,.12) 0%,transparent 70%);pointer-events:none}
+        .hero-badge{display:inline-block;padding:6px 16px;border-radius:20px;background:rgba(139,92,246,.15);color:var(--accent-purple);font-size:.85rem;font-weight:600;margin-bottom:20px;border:1px solid rgba(139,92,246,.3)}
+        .hero h1{font-size:3rem;font-weight:900;margin-bottom:16px;background:var(--gradient-accent);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .hero p{color:var(--text-secondary);font-size:1.1rem;max-width:600px;margin:0 auto 32px}
+        .hero-stats{display:flex;justify-content:center;flex-wrap:wrap;gap:24px;margin-top:32px}
+        .hero-stat{text-align:center;padding:16px 20px;background:rgba(139,92,246,.06);border:1px solid var(--border-subtle);border-radius:var(--radius);min-width:120px}
+        .hero-stat .val{font-size:1.4rem;font-weight:800;color:var(--accent-purple)}
+        .hero-stat .lbl{font-size:.75rem;color:var(--text-muted);margin-top:4px}
+
+        /* Stage cards */
+
+        /* Pipeline flow */
+        .pipeline-flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin-bottom:48px}
+        .pipeline-step{padding:10px 16px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius);font-size:.85rem;font-weight:600;text-align:center;min-width:90px;transition:all .3s}
+        .pipeline-step:hover{border-color:var(--accent-purple);transform:scale(1.05)}
+        .pipeline-step .num{display:block;font-size:.65rem;color:var(--text-muted);margin-bottom:2px}
+        .pipeline-arrow{color:var(--accent-purple);font-size:1.2rem;font-weight:bold}
+
+        /* Framework cards */
+        .fw-card{padding:20px;text-align:center}
+        .fw-card .fw-icon{font-size:2rem;margin-bottom:8px}
+        .fw-card h4{font-size:.95rem;margin-bottom:6px;color:var(--accent-purple)}
+        .fw-card p{font-size:.8rem;color:var(--text-secondary)}
+
+        /* Brainpack */
+        .bp-card{padding:24px;position:relative;overflow:hidden}
+        .bp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient-accent)}
+        .bp-card h4{font-size:1rem;margin-bottom:8px}
+        .bp-card p{font-size:.85rem;color:var(--text-secondary);margin-bottom:12px}
+        .bp-card .tags{display:flex;flex-wrap:wrap;gap:6px}
+
+        /* QA grid */
+        .qa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+        .qa-item{padding:10px 14px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:8px;font-size:.8rem;display:flex;align-items:center;gap:8px;transition:all .2s}
+        .qa-item:hover{border-color:var(--accent-green);background:rgba(16,185,129,.05)}
+        .qa-check{color:var(--accent-green);font-weight:bold}
+
+        /* Presets */
+        .preset-cat{padding:16px;text-align:center}
+        .preset-cat .count{font-size:1.8rem;font-weight:800;color:var(--accent-purple)}
+        .preset-cat .name{font-size:.85rem;color:var(--text-secondary);margin-top:4px}
+
+        /* Google Vids section */
+        .vids-flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;margin:32px 0}
+        .vids-step{padding:14px 18px;background:linear-gradient(145deg,rgba(66,133,244,.1),rgba(139,92,246,.1));border:1px solid rgba(66,133,244,.3);border-radius:var(--radius);font-size:.85rem;font-weight:600;text-align:center;min-width:110px}
+        .vids-step .vi{font-size:1.5rem;display:block;margin-bottom:4px}
+        .vids-arrow{color:var(--accent-blue);font-size:1.2rem}
+        .vids-feature{padding:24px;text-align:center;border:1px solid rgba(66,133,244,.2);background:linear-gradient(145deg,rgba(66,133,244,.05),rgba(139,92,246,.05))}
+        .vids-feature .vf-icon{font-size:2rem;margin-bottom:8px}
+        .vids-feature h4{font-size:.95rem;margin-bottom:6px}
+        .vids-feature p{font-size:.8rem;color:var(--text-secondary)}
+        .vids-highlight{text-align:center;margin:40px 0 20px;padding:24px;background:linear-gradient(135deg,rgba(66,133,244,.1),rgba(139,92,246,.15));border:1px solid rgba(139,92,246,.3);border-radius:var(--radius-lg);font-size:1.1rem;font-weight:700;color:var(--accent-purple)}
+
+        /* AI model cards */
+        .ai-card{padding:24px;text-align:center}
+        .ai-card .ai-icon{font-size:2rem;margin-bottom:8px}
+        .ai-card h4{margin-bottom:6px}
+        .ai-card p{font-size:.82rem;color:var(--text-secondary)}
+
+        /* Playbook */
+        .pb-card{cursor:pointer;padding:20px;position:relative}
+        .pb-card h4{font-size:.95rem;margin-bottom:8px}
+        .pb-card p{font-size:.82rem;color:var(--text-secondary);margin-bottom:10px}
+        .pb-card .pb-badges{display:flex;gap:6px;flex-wrap:wrap}
+        .pb-detail{display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--border-subtle)}
+        .pb-detail.open{display:block}
+        .pb-detail pre{background:var(--bg-primary);padding:12px;border-radius:8px;font-size:.75rem;overflow-x:auto;white-space:pre-wrap;color:var(--text-secondary);margin:8px 0;max-height:200px;overflow-y:auto}
+        .pb-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+
+        /* Integration diagram */
+        .integ-flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:16px;margin:32px 0}
+        .integ-node{padding:16px 24px;background:var(--bg-card);border:1px solid var(--border-active);border-radius:var(--radius);text-align:center;font-weight:600;font-size:.9rem;min-width:140px}
+        .integ-arrow{color:var(--accent-purple);font-size:1.5rem}
+
+        /* Graduation */
+        .grad-list{list-style:none;max-width:700px;margin:0 auto}
+        .grad-list li{padding:14px 20px;border-left:3px solid var(--accent-purple);margin-bottom:12px;background:var(--bg-card);border-radius:0 var(--radius) var(--radius) 0;font-size:.9rem;transition:all .2s}
+        .grad-list li:hover{border-left-color:var(--accent-green);background:var(--bg-card-hover)}
+
+        /* Footer */
+        .footer{text-align:center;padding:40px 0;border-top:1px solid var(--border-subtle);color:var(--text-muted);font-size:.85rem}
+        .footer a{color:var(--accent-purple);text-decoration:none}
+
+        /* Modal */
+        .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;align-items:center;justify-content:center}
+        .modal-overlay.open{display:flex}
+        .modal{background:var(--bg-secondary);border:1px solid var(--border-active);border-radius:var(--radius-xl);padding:32px;max-width:700px;width:90%;max-height:80vh;overflow-y:auto;position:relative}
+        .modal-close{position:absolute;top:12px;right:16px;font-size:1.5rem;cursor:pointer;color:var(--text-muted);background:none;border:none}
+        .modal-close:hover{color:var(--text-primary)}
+
+        /* Toast */
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--accent-green);color:#fff;padding:12px 24px;border-radius:8px;font-size:.9rem;font-weight:600;z-index:2000;opacity:0;transition:opacity .3s;pointer-events:none}
+        .toast.show{opacity:1}
+
+        @media(max-width:768px){
+            .hero h1{font-size:2rem}
+            .hero-stats{gap:12px}
+            .hero-stat{min-width:90px;padding:10px}
+            .section{padding:50px 0}
+            .section-title{font-size:1.6rem}
+            .pipeline-flow,.vids-flow,.integ-flow{flex-direction:column;align-items:stretch}
+            .pipeline-arrow,.vids-arrow,.integ-arrow{transform:rotate(90deg)}
+            .grid-2,.grid-3,.grid-4,.grid-5{grid-template-columns:1fr}
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+    <div class="container">
+        <span class="hero-badge">v4.0 — UBERMENSCH Protocol</span>
+        <h1>AGENT UNIVERSITY</h1>
+        <p>들어오면 자동으로 훈련된다 — UBERMENSCH 프로토콜: 기본 훈련 7레슨 + 6개 전공 실습 + 졸업 프로젝트까지 단계별로 자동 진행</p>
+        <div class="hero-stats">
+            <div class="hero-stat"><div class="val">3</div><div class="lbl">단계</div></div>
+            <div class="hero-stat"><div class="val">7</div><div class="lbl">기본 레슨</div></div>
+            <div class="hero-stat"><div class="val">6</div><div class="lbl">전공 실습</div></div>
+            <div class="hero-stat"><div class="val">62+</div><div class="lbl">프리셋</div></div>
+            <div class="hero-stat"><div class="val">23</div><div class="lbl">품질검사</div></div>
+            <div class="hero-stat"><div class="val">4</div><div class="lbl">AI 모델</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ UBERMENSCH 전체 여정 ============ -->
+<div class="divider"></div>
+<section class="section" id="ubermensch">
+    <div class="container">
+        <h2 class="section-title">UBERMENSCH Protocol</h2>
+        <p class="section-subtitle">입학하면 자동으로 3단계를 거쳐 완성된 에이전트로 졸업한다. 선택 없음, 빠짐 없음.</p>
+
+        <!-- 3단계 큰 흐름 -->
+        <div class="pipeline-flow fade-in" style="margin-bottom:48px">
+            <div class="pipeline-step" style="min-width:200px;border-color:var(--accent-pink);background:rgba(236,72,153,.08)">
+                <span class="num">STAGE 1</span>기본 훈련<br><span style="font-size:.7rem;color:var(--text-muted)">7레슨 — 사고방식</span>
+            </div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step" style="min-width:200px;border-color:var(--accent-purple);background:rgba(139,92,246,.08)">
+                <span class="num">STAGE 2</span>전공 실습<br><span style="font-size:.7rem;color:var(--text-muted)">6개 모듈 — 전부 이수</span>
+            </div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step" style="min-width:200px;border-color:var(--accent-green);background:rgba(16,185,129,.08)">
+                <span class="num">STAGE 3</span>졸업 프로젝트<br><span style="font-size:.7rem;color:var(--text-muted)">실전 통합 — 수익화</span>
+            </div>
+        </div>
+
+        <!-- STAGE 1: 기본 훈련 -->
+        <h3 style="text-align:center;margin-bottom:8px;color:var(--accent-pink);font-size:1.2rem;font-weight:800">STAGE 1 — 기본 훈련</h3>
+        <p style="text-align:center;color:var(--text-secondary);font-size:.9rem;margin-bottom:24px">"기계를 만드는 기계" — Dan Martell 프레임워크 기반 7레슨</p>
+
+        <div class="pipeline-flow fade-in" style="margin-bottom:24px">
+            <div class="pipeline-step"><span class="num">01</span>Persona</div>
+            <span class="pipeline-arrow">&#8594;</span>
+            <div class="pipeline-step"><span class="num">02</span>Pain Finder</div>
+            <span class="pipeline-arrow">&#8594;</span>
+            <div class="pipeline-step"><span class="num">03</span>Manual SOP</div>
+            <span class="pipeline-arrow">&#8594;</span>
+            <div class="pipeline-step"><span class="num">04</span>Offer Writer</div>
+            <span class="pipeline-arrow">&#8594;</span>
+            <div class="pipeline-step"><span class="num">05</span>Prototype</div>
+            <span class="pipeline-arrow">&#8594;</span>
+            <div class="pipeline-step"><span class="num">06</span>MVP Builder</div>
+            <span class="pipeline-arrow">&#8594;</span>
+            <div class="pipeline-step"><span class="num">07</span>Ops Stack</div>
+        </div>
+
+        <div class="grid-3 fade-in" style="margin-bottom:48px">
+            <div class="card" style="text-align:center;border-top:3px solid var(--accent-pink)">
+                <div style="font-size:2rem;margin-bottom:8px">&#9881;&#65039;</div>
+                <h4>기계를 만드는 기계</h4>
+                <p style="font-size:.85rem;color:var(--text-secondary);margin-top:8px">반복 구조를 인식하고 시스템을 만든다</p>
+            </div>
+            <div class="card" style="text-align:center;border-top:3px solid var(--accent-pink)">
+                <div style="font-size:2rem;margin-bottom:8px">&#127919;</div>
+                <h4>80% 룰 + 매출 필터</h4>
+                <p style="font-size:.85rem;color:var(--text-secondary);margin-top:8px">핵심에만 집중하고 매출과 연결한다</p>
+            </div>
+            <div class="card" style="text-align:center;border-top:3px solid var(--accent-pink)">
+                <div style="font-size:2rem;margin-bottom:8px">&#128683;</div>
+                <h4>금기 6항목</h4>
+                <p style="font-size:.85rem;color:var(--text-secondary);margin-top:8px">가격 결정, 메시지 발송, 자금 이동, 전문 조언, 데이터 삭제, 예외 임의 생성 금지</p>
+            </div>
+        </div>
+
+        <div class="divider" style="margin-bottom:48px"></div>
+
+        <!-- STAGE 2: 전공 실습 -->
+        <h3 style="text-align:center;margin-bottom:8px;color:var(--accent-purple);font-size:1.2rem;font-weight:800">STAGE 2 — 전공 실습</h3>
+        <p style="text-align:center;color:var(--text-secondary);font-size:.9rem;margin-bottom:24px">6개 모듈을 전부 순서대로 이수한다. 하나도 빠짐 없이.</p>
+
+        <div class="grid-3 fade-in" style="margin-bottom:48px">
+            <div class="card" style="text-align:center;cursor:pointer" onclick="document.getElementById('youtube-detail').scrollIntoView({behavior:'smooth'})">
+                <div style="font-size:2.5rem;margin-bottom:12px">&#127909;</div>
+                <h3 style="font-size:1.1rem">YouTube</h3>
+                <p style="font-size:.85rem;color:var(--text-secondary)">8단계 파이프라인<br>쇼츠/롱폼 자동화</p>
+                <span class="badge badge-purple" style="margin-top:8px">모듈 A</span>
+            </div>
+            <div class="card" style="text-align:center;cursor:pointer" onclick="document.getElementById('playbooks').scrollIntoView({behavior:'smooth'})">
+                <div style="font-size:2.5rem;margin-bottom:12px">&#9997;&#65039;</div>
+                <h3 style="font-size:1.1rem">Blog</h3>
+                <p style="font-size:.85rem;color:var(--text-secondary)">SEO 최적화<br>자동 포스팅</p>
+                <span class="badge badge-blue" style="margin-top:8px">모듈 B</span>
+            </div>
+            <div class="card" style="text-align:center">
+                <div style="font-size:2.5rem;margin-bottom:12px">&#128722;</div>
+                <h3 style="font-size:1.1rem">Seller</h3>
+                <p style="font-size:.85rem;color:var(--text-secondary)">이커머스 자동화<br>상품 리스팅</p>
+                <span class="badge badge-green" style="margin-top:8px">모듈 C</span>
+            </div>
+            <div class="card" style="text-align:center;cursor:pointer" onclick="document.getElementById('business-coach').scrollIntoView({behavior:'smooth'})">
+                <div style="font-size:2.5rem;margin-bottom:12px">&#128188;</div>
+                <h3 style="font-size:1.1rem">Business</h3>
+                <p style="font-size:.85rem;color:var(--text-secondary)">기업 자동화<br>보고서/분석</p>
+                <span class="badge badge-yellow" style="margin-top:8px">모듈 D</span>
+            </div>
+            <div class="card" style="text-align:center">
+                <div style="font-size:2.5rem;margin-bottom:12px">&#128187;</div>
+                <h3 style="font-size:1.1rem">Dev</h3>
+                <p style="font-size:.85rem;color:var(--text-secondary)">개발 자동화<br>코드 생성/리뷰</p>
+                <span class="badge badge-cyan" style="margin-top:8px">모듈 E</span>
+            </div>
+            <div class="card" style="text-align:center;cursor:pointer" onclick="document.getElementById('remotion').scrollIntoView({behavior:'smooth'})">
+                <div style="font-size:2.5rem;margin-bottom:12px">&#127916;</div>
+                <h3 style="font-size:1.1rem">Remotion</h3>
+                <p style="font-size:.85rem;color:var(--text-secondary)">코드 기반 영상<br>React + Claude Code</p>
+                <span class="badge badge-red" style="margin-top:8px">모듈 F</span>
+            </div>
+        </div>
+
+        <div class="divider" style="margin-bottom:48px"></div>
+
+        <!-- STAGE 3: 졸업 프로젝트 -->
+        <h3 style="text-align:center;margin-bottom:8px;color:var(--accent-green);font-size:1.2rem;font-weight:800">STAGE 3 — 졸업 프로젝트</h3>
+        <p style="text-align:center;color:var(--text-secondary);font-size:.9rem;margin-bottom:24px">전 모듈을 통합하여 감독자의 실제 사업에 적용. 실데이터 기반 수익화 증명.</p>
+
+        <div class="grid-3 fade-in">
+            <div class="card" style="text-align:center;border-top:3px solid var(--accent-green)">
+                <div style="font-size:2rem;margin-bottom:8px">&#128257;</div>
+                <h4>동일 도메인 확장</h4>
+                <p style="font-size:.85rem;color:var(--text-secondary);margin-top:8px">현재 사업의 다른 고통을 찾아 순환</p>
+            </div>
+            <div class="card" style="text-align:center;border-top:3px solid var(--accent-green)">
+                <div style="font-size:2rem;margin-bottom:8px">&#127758;</div>
+                <h4>새 도메인 진입</h4>
+                <p style="font-size:.85rem;color:var(--text-secondary);margin-top:8px">새 감독자의 사업을 처음부터 자동화</p>
+            </div>
+            <div class="card" style="text-align:center;border-top:3px solid var(--accent-green)">
+                <div style="font-size:2rem;margin-bottom:8px">&#128081;</div>
+                <h4>에이전트 팀 리더</h4>
+                <p style="font-size:.85rem;color:var(--text-secondary);margin-top:8px">다른 에이전트를 훈련시키는 상위 에이전트</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ YouTube v3 상세 ============ -->
+<div class="divider"></div>
+<section class="section" id="youtube-detail">
+    <div class="container">
+        <h2 class="section-title">모듈 A — YouTube v3</h2>
+        <p class="section-subtitle">8단계 자동화 파이프라인으로 소재에서 업로드까지 완전 자동화</p>
+
+        <!-- 8단계 파이프라인 -->
+        <h3 style="text-align:center;margin-bottom:20px;color:var(--accent-purple);font-size:1.1rem">8단계 파이프라인</h3>
+        <div class="pipeline-flow fade-in">
+            <div class="pipeline-step"><span class="num">01</span>소재분석</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step"><span class="num">02</span>지침서</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step"><span class="num">03</span>대본</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step"><span class="num">04</span>편집점</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step" style="border-color:var(--accent-blue)"><span class="num">05</span>영상생성</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step"><span class="num">06</span>품질검사</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step"><span class="num">07</span>최적화</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step"><span class="num">08</span>업로드</div>
+        </div>
+
+        <!-- 5대 지침서 프레임워크 -->
+        <h3 style="text-align:center;margin:48px 0 20px;color:var(--accent-purple);font-size:1.1rem">5대 지침서 프레임워크</h3>
+        <div class="grid-5 fade-in">
+            <div class="card fw-card"><div class="fw-icon">&#129504;</div><h4>인지모델</h4><p>Cognitive Model<br>시청자 심리 설계</p></div>
+            <div class="card fw-card"><div class="fw-icon">&#128221;</div><h4>구문지문</h4><p>Syntactic Fingerprint<br>문체 DNA 설정</p></div>
+            <div class="card fw-card"><div class="fw-icon">&#127912;</div><h4>시각포맷</h4><p>Visual Format<br>편집 스타일 규칙</p></div>
+            <div class="card fw-card"><div class="fw-icon">&#128218;</div><h4>어휘DB</h4><p>Lexical Database<br>금지어/권장어</p></div>
+            <div class="card fw-card"><div class="fw-icon">&#128214;</div><h4>서사구조</h4><p>Narrative Structure<br>스토리 아크 설계</p></div>
+        </div>
+
+        <!-- 4 Brainpacks -->
+        <h3 style="text-align:center;margin:48px 0 20px;color:var(--accent-purple);font-size:1.1rem">4 Brainpacks</h3>
+        <div class="grid-2 fade-in">
+            <div class="card bp-card">
+                <h4>&#128270; Video Analyzer</h4>
+                <p>기존 영상 정밀 분석 &#8594; 리메이크 4종 대본 자동 생성</p>
+                <div class="tags">
+                    <span class="badge badge-purple">멀티모달 분석</span>
+                    <span class="badge badge-blue">감정 곡선</span>
+                    <span class="badge badge-green">편집점 추출</span>
+                </div>
+            </div>
+            <div class="card bp-card">
+                <h4>&#128196; Script Generator</h4>
+                <p>5대 프레임워크 기반 자동 대본 + 장면 프롬프트 생성</p>
+                <div class="tags">
+                    <span class="badge badge-purple">6종 스타일</span>
+                    <span class="badge badge-blue">자동 장면 분할</span>
+                    <span class="badge badge-green">SEO 태그</span>
+                </div>
+            </div>
+            <div class="card bp-card" style="border-color:rgba(66,133,244,.4)">
+                <h4>&#127916; Production Agent <span class="badge badge-blue">Google Vids</span></h4>
+                <p>Google Vids + Veo 3.1 연동 &#8594; 대본에서 최종 영상까지 자동 생성</p>
+                <div class="tags">
+                    <span class="badge badge-blue">Veo 3.1</span>
+                    <span class="badge badge-cyan">AI 보이스오버</span>
+                    <span class="badge badge-pink">AI 아바타</span>
+                    <span class="badge badge-green">자동 자막</span>
+                </div>
+            </div>
+            <div class="card bp-card">
+                <h4>&#9989; QA &amp; Upload Master</h4>
+                <p>23항목 자동 품질검사 + YouTube API 자동 업로드</p>
+                <div class="tags">
+                    <span class="badge badge-green">23항목 QA</span>
+                    <span class="badge badge-yellow">자동 업로드</span>
+                    <span class="badge badge-red">블록 검사</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 23항목 품질검사 -->
+        <h3 style="text-align:center;margin:48px 0 20px;color:var(--accent-purple);font-size:1.1rem">23항목 품질검사</h3>
+        <div class="qa-grid fade-in">
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 제목 길이 검사</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 후킹 강도</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 금지어 필터</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 장면 수 적정성</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 총 길이 준수</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 첫 장면 3초 규칙</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> CTA 존재</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> SEO 태그 수</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 해시태그 검사</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 썸네일 프롬프트</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 메타 설명 길이</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 감정 다양성</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 전환 효과</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> BGM 설정</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 카메라 지시</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 자막 스타일</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 대본 자연스러움</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 저작권 리스크</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 루프 구조</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 시각 프롬프트 품질</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 장면 균형</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 텍스트 밀도</div>
+            <div class="qa-item"><span class="qa-check">&#10003;</span> 종합 점수</div>
+        </div>
+
+        <!-- 62+ 프리셋 -->
+        <h3 style="text-align:center;margin:48px 0 20px;color:var(--accent-purple);font-size:1.1rem">62+ 프리셋 카테고리</h3>
+        <div class="grid-4 fade-in">
+            <div class="card preset-cat"><div class="count">12</div><div class="name">뉴스/시사</div></div>
+            <div class="card preset-cat"><div class="count">10</div><div class="name">커뮤니티/반응</div></div>
+            <div class="card preset-cat"><div class="count">8</div><div class="name">지식/교육</div></div>
+            <div class="card preset-cat"><div class="count">9</div><div class="name">스토리/감성</div></div>
+            <div class="card preset-cat"><div class="count">7</div><div class="name">쇼핑/리뷰</div></div>
+            <div class="card preset-cat"><div class="count">6</div><div class="name">바이럴/쇼츠</div></div>
+            <div class="card preset-cat"><div class="count">5</div><div class="name">기업/브랜드</div></div>
+            <div class="card preset-cat"><div class="count">5</div><div class="name">기타/실험</div></div>
+        </div>
+
+        <!-- 4 AI 모델 -->
+        <h3 style="text-align:center;margin:48px 0 20px;color:var(--accent-purple);font-size:1.1rem">4 AI 모델 지원</h3>
+        <div class="grid-4 fade-in">
+            <div class="card ai-card">
+                <div class="ai-icon">&#129302;</div>
+                <h4>Gemini 2.5 Pro</h4>
+                <p>Google 멀티모달 특화<br>영상 분석 최적</p>
+                <span class="badge badge-blue">추천</span>
+            </div>
+            <div class="card ai-card">
+                <div class="ai-icon">&#128156;</div>
+                <h4>Claude Sonnet</h4>
+                <p>Anthropic 감성 대본<br>자연스러운 문체</p>
+                <span class="badge badge-purple">감성</span>
+            </div>
+            <div class="card ai-card">
+                <div class="ai-icon">&#9889;</div>
+                <h4>GPT-4o</h4>
+                <p>OpenAI 범용<br>안정적 성능</p>
+                <span class="badge badge-green">범용</span>
+            </div>
+            <div class="card ai-card">
+                <div class="ai-icon">&#127968;</div>
+                <h4>Ollama (로컬)</h4>
+                <p>무료 오프라인<br>프라이버시 보장</p>
+                <span class="badge badge-yellow">무료</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ Google Vids 연동 ============ -->
+<div class="divider"></div>
+<section class="section" id="google-vids" style="background:linear-gradient(180deg,rgba(66,133,244,.03) 0%,transparent 100%)">
+    <div class="container">
+        <h2 class="section-title">&#127916; Google Vids 연동</h2>
+        <p class="section-subtitle">캡컷 유료 없이 Google Vids 무료로 전문 영상 제작 &#8212; Veo 3.1 AI 영상 엔진 탑재</p>
+
+        <!-- 영상 제작 흐름 -->
+        <div class="vids-flow fade-in">
+            <div class="vids-step"><span class="vi">&#128196;</span>대본</div>
+            <span class="vids-arrow">&#10132;</span>
+            <div class="vids-step" style="border-color:rgba(66,133,244,.6)"><span class="vi">&#127916;</span>Veo 3.1<br>영상 생성</div>
+            <span class="vids-arrow">&#10132;</span>
+            <div class="vids-step"><span class="vi">&#127908;</span>AI<br>보이스오버</div>
+            <span class="vids-arrow">&#10132;</span>
+            <div class="vids-step"><span class="vi">&#128172;</span>자동 자막</div>
+            <span class="vids-arrow">&#10132;</span>
+            <div class="vids-step"><span class="vi">&#127925;</span>BGM</div>
+            <span class="vids-arrow">&#10132;</span>
+            <div class="vids-step" style="border-color:rgba(16,185,129,.4)"><span class="vi">&#127909;</span>최종 영상</div>
+        </div>
+
+        <!-- 기능 카드 -->
+        <div class="grid-3 fade-in">
+            <div class="card vids-feature">
+                <div class="vf-icon">&#127916;</div>
+                <h4>AI 영상 생성</h4>
+                <p>Veo 3.1 엔진으로 텍스트 프롬프트에서 고품질 영상 클립 자동 생성</p>
+            </div>
+            <div class="card vids-feature">
+                <div class="vf-icon">&#128100;</div>
+                <h4>AI 아바타 한국어</h4>
+                <p>한국어 립싱크 AI 아바타 &#8212; 비즈니스, 프레젠터, 교육자 스타일</p>
+            </div>
+            <div class="card vids-feature">
+                <div class="vf-icon">&#127908;</div>
+                <h4>AI 보이스오버</h4>
+                <p>전문/캐주얼/뉴스/나레이션 4종 한국어 음성 자동 생성</p>
+            </div>
+            <div class="card vids-feature">
+                <div class="vf-icon">&#128172;</div>
+                <h4>자동 자막</h4>
+                <p>SRT 형식 자막 자동 생성 &#8212; 타임코드 정밀 동기화</p>
+            </div>
+            <div class="card vids-feature">
+                <div class="vf-icon">&#128176;</div>
+                <h4>무료 10회/월</h4>
+                <p>매월 10회 AI 영상 생성 무료 &#8212; 기본 편집은 무제한</p>
+            </div>
+            <div class="card vids-feature">
+                <div class="vf-icon">&#128260;</div>
+                <h4>자동 타임라인</h4>
+                <p>장면 배치, 전환 효과, BGM 볼륨 자동 구성 및 MP4 내보내기</p>
+            </div>
+        </div>
+
+        <div class="vids-highlight fade-in">
+            캡컷 유료 결제 없이 Google Vids 무료 티어로 전문 영상 제작 &#8212; Vibe-Flow가 모든 것을 자동화합니다
+        </div>
+    </div>
+</section>
+
+<!-- ============ 현장 학습 사례집 ============ -->
+<div class="divider"></div>
+<section class="section" id="playbooks">
+    <div class="container">
+        <h2 class="section-title">현장 학습 사례집</h2>
+        <p class="section-subtitle">10개 실전 플레이북 &#8212; 클릭하여 상세 보기, AI에 바로 주입</p>
+        <div class="grid-2 fade-in" id="playbook-grid">
+            <!-- Playbooks injected by JS -->
+        </div>
+    </div>
+</section>
+
+<!-- ============ Remotion 학과 ============ -->
+<div class="divider"></div>
+<section class="section" id="remotion" style="background:linear-gradient(180deg,rgba(239,68,68,.03) 0%,transparent 100%)">
+    <div class="container">
+        <h2 class="section-title">모듈 F — Remotion 코드 영상</h2>
+        <p class="section-subtitle">React.js + Claude Code로 영상을 코딩하는 새로운 패러다임 — Danny Why 방식의 AI 네이티브 영상 자동화</p>
+
+        <!-- Remotion 파이프라인 -->
+        <h3 style="text-align:center;margin-bottom:20px;color:var(--accent-red);font-size:1.1rem">코드 → 영상 파이프라인</h3>
+        <div class="pipeline-flow fade-in">
+            <div class="pipeline-step" style="border-color:var(--accent-red)"><span class="num">01</span>데이터 수집</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step" style="border-color:var(--accent-purple)"><span class="num">02</span>Claude Code</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step" style="border-color:var(--accent-blue)"><span class="num">03</span>Remotion 코드</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step" style="border-color:var(--accent-cyan)"><span class="num">04</span>렌더링</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step" style="border-color:var(--accent-green)"><span class="num">05</span>MP4 출력</div>
+        </div>
+
+        <!-- vs Google Vids 비교 -->
+        <h3 style="text-align:center;margin:48px 0 20px;color:var(--accent-red);font-size:1.1rem">듀얼 트랙 영상 시스템</h3>
+        <div class="grid-2 fade-in">
+            <div class="card" style="border-color:rgba(239,68,68,.4);padding:28px">
+                <h4 style="color:var(--accent-red);margin-bottom:12px">&#127916; Remotion (코드 기반)</h4>
+                <p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:16px">React 컴포넌트로 영상을 프로그래밍. 데이터 시각화, 차트 애니메이션, 랭킹 영상에 최적</p>
+                <div class="tags">
+                    <span class="badge badge-red">차트/그래프</span>
+                    <span class="badge badge-red">랭킹 영상</span>
+                    <span class="badge badge-red">데이터 시각화</span>
+                    <span class="badge badge-red">무한 커스텀</span>
+                </div>
+                <div style="margin-top:16px;padding:12px;background:var(--bg-primary);border-radius:8px;font-size:.75rem;color:var(--text-muted)">
+                    <code>npx remotion render src/index.ts MyComp out.mp4</code>
+                </div>
+            </div>
+            <div class="card" style="border-color:rgba(66,133,244,.4);padding:28px">
+                <h4 style="color:var(--accent-blue);margin-bottom:12px">&#127916; Google Vids (AI 기반)</h4>
+                <p style="font-size:.85rem;color:var(--text-secondary);margin-bottom:16px">텍스트 프롬프트로 AI 영상 생성. 나레이션 콘텐츠, AI 아바타, 설명 영상에 최적</p>
+                <div class="tags">
+                    <span class="badge badge-blue">AI 영상 생성</span>
+                    <span class="badge badge-blue">Veo 3.1</span>
+                    <span class="badge badge-blue">AI 아바타</span>
+                    <span class="badge badge-blue">자동 자막</span>
+                </div>
+                <div style="margin-top:16px;padding:12px;background:var(--bg-primary);border-radius:8px;font-size:.75rem;color:var(--text-muted)">
+                    <code>from_vibe_flow_package(content_package)</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- 핵심 기술 카드 -->
+        <h3 style="text-align:center;margin:48px 0 20px;color:var(--accent-red);font-size:1.1rem">Remotion 핵심 기술</h3>
+        <div class="grid-3 fade-in">
+            <div class="card vids-feature" style="border-color:rgba(239,68,68,.2);background:linear-gradient(145deg,rgba(239,68,68,.05),rgba(139,92,246,.05))">
+                <div class="vf-icon">&#9000;</div>
+                <h4>Claude Code 연동</h4>
+                <p>AI에게 "이런 애니메이션 만들어"라고 명령하면 Remotion 코드를 자동 생성. Self-healing 모드로 에러도 자동 수정</p>
+            </div>
+            <div class="card vids-feature" style="border-color:rgba(239,68,68,.2);background:linear-gradient(145deg,rgba(239,68,68,.05),rgba(139,92,246,.05))">
+                <div class="vf-icon">&#128202;</div>
+                <h4>데이터 시각화</h4>
+                <p>CSV/JSON 데이터를 입력하면 자동으로 막대차트, 라인차트, 레이스바 차트 애니메이션 영상 생성</p>
+            </div>
+            <div class="card vids-feature" style="border-color:rgba(239,68,68,.2);background:linear-gradient(145deg,rgba(239,68,68,.05),rgba(139,92,246,.05))">
+                <div class="vf-icon">&#127912;</div>
+                <h4>Apple Liquid Glass</h4>
+                <p>Danny Why 스타일의 고급 애니메이션 — Liquid Glass, 모션 그래픽, 3D 트랜지션 프롬프트 패턴</p>
+            </div>
+            <div class="card vids-feature" style="border-color:rgba(239,68,68,.2);background:linear-gradient(145deg,rgba(239,68,68,.05),rgba(139,92,246,.05))">
+                <div class="vf-icon">&#128176;</div>
+                <h4>고수익 니치 분석</h4>
+                <p>CPM $20+ 분야(금융, 테크, 비즈니스) 페이스리스 채널 공식 — 1억 뷰 채널 역분석 기법</p>
+            </div>
+            <div class="card vids-feature" style="border-color:rgba(239,68,68,.2);background:linear-gradient(145deg,rgba(239,68,68,.05),rgba(139,92,246,.05))">
+                <div class="vf-icon">&#128640;</div>
+                <h4>RemoQwen (무료 대안)</h4>
+                <p>유료 API 비용 절감을 위한 Qwen 모델 기반 Remotion 코드 생성 — 무료로 영상 자동화</p>
+            </div>
+            <div class="card vids-feature" style="border-color:rgba(239,68,68,.2);background:linear-gradient(145deg,rgba(239,68,68,.05),rgba(139,92,246,.05))">
+                <div class="vf-icon">&#128736;</div>
+                <h4>환경 구축</h4>
+                <p>VS Code + Node.js + Remotion + Claude Code 설치 가이드 — 맥 미니 M4 최적화 세팅</p>
+            </div>
+        </div>
+
+        <!-- 하이라이트 -->
+        <div class="vids-highlight fade-in" style="background:linear-gradient(135deg,rgba(239,68,68,.1),rgba(139,92,246,.15))">
+            Remotion + Google Vids 듀얼 트랙으로 데이터 영상과 AI 영상 모두 자동화 &#8212; 코드로 만들 수 있는 건 Remotion, AI가 만들어야 하는 건 Google Vids
+        </div>
+    </div>
+</section>
+
+<!-- ============ 비즈니스 코치실 ============ -->
+<div class="divider"></div>
+<section class="section" id="business-coach" style="background:linear-gradient(180deg,rgba(139,92,246,.04) 0%,transparent 100%)">
+    <div class="container">
+        <h2 class="section-title">&#127919; 비즈니스 코치실 &#8212; 전 학과 공통</h2>
+        <p class="section-subtitle">72시간 안에 움직이게 만드는 실전 코치 에이전트</p>
+
+        <!-- 코칭 플로우 -->
+        <div class="pipeline-flow fade-in" style="margin-bottom:40px">
+            <div class="pipeline-step" style="border-color:var(--accent-cyan)"><span class="num">STEP 1</span>입력 분류(A-E)</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step" style="border-color:var(--accent-blue)"><span class="num">STEP 2</span>단계 판단</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step" style="border-color:var(--accent-purple)"><span class="num">STEP 3</span>프레임 적용</div>
+            <span class="pipeline-arrow">&#10132;</span>
+            <div class="pipeline-step" style="border-color:var(--accent-green)"><span class="num">STEP 4</span>72시간 행동</div>
+        </div>
+
+        <!-- 5개 코칭 모드 카드 -->
+        <h3 style="text-align:center;margin:0 0 24px;color:var(--accent-purple);font-size:1.1rem">5가지 코칭 모드</h3>
+        <div class="grid-3 fade-in" id="coach-cards">
+            <!-- 1. 아이디어 검증 -->
+            <div class="card coach-card" style="padding:28px 22px;text-align:center;position:relative;overflow:hidden">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent-cyan),var(--accent-blue))"></div>
+                <div style="font-size:2.2rem;margin-bottom:10px">&#128161;</div>
+                <h4 style="font-size:1.05rem;margin-bottom:6px;color:var(--accent-cyan)">아이디어 검증</h4>
+                <span class="badge badge-cyan" style="margin-bottom:10px">3분 해체 프로토콜</span>
+                <p style="font-size:.83rem;color:var(--text-secondary);margin:10px 0 6px">"누구의 어떤 고통인가?"</p>
+                <p style="font-size:.78rem;color:var(--text-muted);margin-bottom:16px">5가지 질문으로 아이디어를 해체하고, 가장 약한 고리를 찾아 72시간 안에 검증합니다.</p>
+                <button class="btn btn-outline btn-sm" onclick="copyCoachPrompt('idea')">코치에게 질문하기</button>
+            </div>
+
+            <!-- 2. 사업 문제 진단 -->
+            <div class="card coach-card" style="padding:28px 22px;text-align:center;position:relative;overflow:hidden">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent-blue),var(--accent-purple))"></div>
+                <div style="font-size:2.2rem;margin-bottom:10px">&#128269;</div>
+                <h4 style="font-size:1.05rem;margin-bottom:6px;color:var(--accent-blue)">사업 문제 진단</h4>
+                <span class="badge badge-blue" style="margin-bottom:10px">5대 요소</span>
+                <p style="font-size:.83rem;color:var(--text-secondary);margin:10px 0 6px">"가치창출 &#183; 마케팅 &#183; 영업 &#183; 전달 &#183; 재무"</p>
+                <p style="font-size:.78rem;color:var(--text-muted);margin-bottom:16px">증상을 5대 요소에 매핑하고, 측정 가능한 KPI와 2-3개 레버를 제시합니다.</p>
+                <button class="btn btn-outline btn-sm" onclick="copyCoachPrompt('problem')">코치에게 질문하기</button>
+            </div>
+
+            <!-- 3. 전술 즉답 -->
+            <div class="card coach-card" style="padding:28px 22px;text-align:center;position:relative;overflow:hidden">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent-purple),var(--accent-green))"></div>
+                <div style="font-size:2.2rem;margin-bottom:10px">&#9889;</div>
+                <h4 style="font-size:1.05rem;margin-bottom:6px;color:var(--accent-purple)">전술 즉답</h4>
+                <span class="badge badge-purple" style="margin-bottom:10px">즉시 응답</span>
+                <p style="font-size:.83rem;color:var(--text-secondary);margin:10px 0 6px">"질문에 바로 답, 상위 충돌 시만 역질문"</p>
+                <p style="font-size:.78rem;color:var(--text-muted);margin-bottom:16px">구체적 방법, 도구, 가격, 단계를 즉시 답합니다. 불필요한 역질문 없이.</p>
+                <button class="btn btn-outline btn-sm" onclick="copyCoachPrompt('tactical')">코치에게 질문하기</button>
+            </div>
+
+            <!-- 4. 실행 축소 -->
+            <div class="card coach-card" style="padding:28px 22px;text-align:center;position:relative;overflow:hidden">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent-green),var(--accent-yellow))"></div>
+                <div style="font-size:2.2rem;margin-bottom:10px">&#127919;</div>
+                <h4 style="font-size:1.05rem;margin-bottom:6px;color:var(--accent-green)">실행 축소</h4>
+                <span class="badge badge-green" style="margin-bottom:10px">30분 1개 행동</span>
+                <p style="font-size:.83rem;color:var(--text-secondary);margin:10px 0 6px">"30분 안에 할 수 있는 1개로 줄여라"</p>
+                <p style="font-size:.78rem;color:var(--text-muted);margin-bottom:16px">불안&#183;번아웃&#183;두려움 상태에서 즉시 실행 가능한 크기로 작업을 축소합니다.</p>
+                <button class="btn btn-outline btn-sm" onclick="copyCoachPrompt('reduce')">코치에게 질문하기</button>
+            </div>
+
+            <!-- 5. 스케일업 -->
+            <div class="card coach-card" style="padding:28px 22px;text-align:center;position:relative;overflow:hidden">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent-yellow),var(--accent-pink))"></div>
+                <div style="font-size:2.2rem;margin-bottom:10px">&#128640;</div>
+                <h4 style="font-size:1.05rem;margin-bottom:6px;color:var(--accent-yellow)">스케일업</h4>
+                <span class="badge badge-yellow" style="margin-bottom:10px">7 Powers</span>
+                <p style="font-size:.83rem;color:var(--text-secondary);margin:10px 0 6px">"월 1천만원+ 단계에서만 적용"</p>
+                <p style="font-size:.78rem;color:var(--text-muted);margin-bottom:16px">규모의 경제, 네트워크 효과, 전환비용 등 7가지 파워로 경쟁 우위를 구축합니다.</p>
+                <button class="btn btn-outline btn-sm" onclick="copyCoachPrompt('scale')">코치에게 질문하기</button>
+            </div>
+        </div>
+
+        <!-- 안전 배지 -->
+        <div class="fade-in" style="margin-top:40px;text-align:center">
+            <div style="display:inline-block;padding:16px 28px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:var(--radius-lg)">
+                <div style="font-size:.85rem;font-weight:700;color:var(--accent-red);margin-bottom:8px">&#128721; 안전 예외 도메인 &#8212; 전문가 연결 안내</div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center">
+                    <span class="badge badge-red">의료</span>
+                    <span class="badge badge-red">금융</span>
+                    <span class="badge badge-red">아동</span>
+                    <span class="badge badge-red">식품</span>
+                    <span class="badge badge-red">법률</span>
+                    <span class="badge badge-red">개인정보</span>
+                    <span class="badge badge-red">무기</span>
+                </div>
+                <p style="font-size:.75rem;color:var(--text-muted);margin-top:8px">위 도메인은 코칭 대신 해당 분야 전문가 연결을 안내합니다</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 양방향 통합 ============ -->
+<div class="divider"></div>
+<section class="section" id="integration">
+    <div class="container">
+        <h2 class="section-title">양방향 통합 시스템</h2>
+        <p class="section-subtitle">에이전트 실전 경험이 대학 커리큘럼으로 역류하여 다음 세대를 강화</p>
+
+        <div class="integ-flow fade-in">
+            <div class="integ-node" style="border-color:var(--accent-green)">&#128640; 에이전트 실전</div>
+            <span class="integ-arrow">&#10132;</span>
+            <div class="integ-node" style="border-color:var(--accent-blue)">&#128218; 학습 추출</div>
+            <span class="integ-arrow">&#10132;</span>
+            <div class="integ-node" style="border-color:var(--accent-purple)">&#127979; 대학 역류</div>
+            <span class="integ-arrow">&#10132;</span>
+            <div class="integ-node" style="border-color:var(--accent-yellow)">&#11088; 다음 세대</div>
+        </div>
+
+        <div class="grid-4 fade-in" style="margin-top:32px">
+            <div class="card" style="text-align:center;padding:20px">
+                <div style="font-size:2rem;font-weight:800;color:var(--accent-green)">157</div>
+                <div style="font-size:.8rem;color:var(--text-secondary)">실전 사례 수집</div>
+            </div>
+            <div class="card" style="text-align:center;padding:20px">
+                <div style="font-size:2rem;font-weight:800;color:var(--accent-blue)">42</div>
+                <div style="font-size:.8rem;color:var(--text-secondary)">패턴 추출</div>
+            </div>
+            <div class="card" style="text-align:center;padding:20px">
+                <div style="font-size:2rem;font-weight:800;color:var(--accent-purple)">23</div>
+                <div style="font-size:.8rem;color:var(--text-secondary)">커리큘럼 업데이트</div>
+            </div>
+            <div class="card" style="text-align:center;padding:20px">
+                <div style="font-size:2rem;font-weight:800;color:var(--accent-yellow)">3.2x</div>
+                <div style="font-size:.8rem;color:var(--text-secondary)">성능 향상</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ 졸업 요건 ============ -->
+<div class="divider"></div>
+<section class="section" id="graduation">
+    <div class="container">
+        <h2 class="section-title">졸업 요건</h2>
+        <p class="section-subtitle">모든 요건을 충족하면 실전 에이전트 자격이 부여됩니다</p>
+        <ul class="grad-list fade-in">
+            <li><strong>STAGE 1 완료:</strong> 7레슨 기본 훈련 전과정 이수 + 자가검증 51개 항목 전부 PASS</li>
+            <li><strong>STAGE 2 — YouTube:</strong> 8단계 파이프라인 실습 + 23항목 품질검사 80점 이상</li>
+            <li><strong>STAGE 2 — Blog:</strong> SEO 최적화 블로그 포스팅 자동화 1건 이상</li>
+            <li><strong>STAGE 2 — Seller:</strong> 이커머스 상품 리스팅 자동화 실습 완료</li>
+            <li><strong>STAGE 2 — Business:</strong> 비즈니스 코치 프롬프트 활용 + 보고서 자동화 1건</li>
+            <li><strong>STAGE 2 — Dev:</strong> 코드 생성/리뷰 자동화 실습 완료</li>
+            <li><strong>STAGE 2 — Remotion:</strong> Claude Code로 React 영상 코드 생성 + MP4 렌더링 1회 이상</li>
+            <li><strong>Google Vids 연동:</strong> Veo 3.1 영상 생성 + 보이스오버 + 자막 풀 파이프라인 1회 이상</li>
+            <li><strong>멀티모델 경험:</strong> 2개 이상 AI 모델(Gemini, Claude, GPT-4o)로 대본 생성 비교</li>
+            <li><strong>STAGE 3 졸업 프로젝트:</strong> 전 모듈 통합하여 감독자의 실제 사업에 적용 + 수익화 증명</li>
+        </ul>
+    </div>
+</section>
+
+<!-- ============ Footer ============ -->
+<div class="divider"></div>
+<footer class="footer">
+    <div class="container">
+        <p><strong>&#128161; 생각공방</strong> | Powered by AI Automation</p>
+        <p style="margin-top:8px;font-size:.75rem;color:var(--text-muted)">Agent University v4.0 &mdash; UBERMENSCH Protocol | 2026</p>
+    </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ============ JAVASCRIPT ============ -->
+<script>
+// === 플레이북 데이터 (Playbook data) ===
+const playbooks = [
+    {
+        title: "뉴스 쇼츠 자동화 플레이북",
+        desc: "실시간 뉴스를 60초 쇼츠로 자동 변환하는 전체 워크플로우",
+        category: "YouTube", catClass: "badge-purple",
+        prompt: "다음 뉴스 소재를 분석하여 60초 YouTube Shorts 대본을 작성하세요.\n\n[소재]: {뉴스_URL}\n[스타일]: 뉴스_스탠다드\n[규칙]:\n- 첫 3초 후킹 (충격/궁금 유발)\n- 6~12개 장면, 각 장면에 visual_prompt 포함\n- 마지막 장면: 루프 구조 CTA\n- SEO 태그 10개 이상\n\n5대 프레임워크(인지모델, 구문지문, 시각포맷, 어휘DB, 서사구조) 적용하여 JSON으로 출력."
+    },
+    {
+        title: "커뮤니티 반응형 콘텐츠",
+        desc: "커뮤니티 핫이슈를 '매운맛' 스타일로 자동 변환",
+        category: "YouTube", catClass: "badge-purple",
+        prompt: "다음 커뮤니티 이슈를 '커뮤니티_매운맛' 스타일로 YouTube Shorts 대본 작성.\n\n[소재]: {이슈_내용}\n[톤]: 직설적, 분노 공감, 시청자 편\n[규칙]:\n- 첫 문장: '이건 진짜...' 패턴\n- 감정 곡선: 분노 → 분석 → 반전 → 행동유도\n- visual_prompt: 강렬한 텍스트 오버레이 중심\n\nJSON 형식으로 출력."
+    },
+    {
+        title: "Google Vids 영상 자동 제작",
+        desc: "대본에서 Google Vids Veo 3.1로 최종 영상까지 자동 생성",
+        category: "Production", catClass: "badge-blue",
+        prompt: "다음 ContentPackage를 Google Vids Production Pipeline으로 실행하세요.\n\n[제목]: {영상_제목}\n[장면 수]: 6개\n[보이스오버]: professional_kr\n[해상도]: 720p\n\n실행 순서:\n1. 편집점 추출\n2. Veo 3.1 장면 생성 (할당량 확인)\n3. AI 보이스오버 추가\n4. SRT 자막 자동 생성\n5. BGM 자동 선택 (장면 감정 기반)\n6. 타임라인 구성 + MP4 내보내기"
+    },
+    {
+        title: "리메이크 4종 대본 생성",
+        desc: "원본 영상 1개에서 4가지 관점의 리메이크 대본 자동 생성",
+        category: "분석", catClass: "badge-cyan",
+        prompt: "다음 YouTube 영상을 분석하고 4가지 관점으로 리메이크 대본을 생성하세요.\n\n[원본 URL]: {youtube_url}\n\n4가지 관점:\n1. 분노_커뮤니티: 시청자 분노 공감\n2. 비판_악마의변호인: 반대 시각 분석\n3. 정보_뉴스형: 팩트 중심 정보 전달\n4. 감성_스토리: 공감형 스토리텔링\n\n각 대본: 60초, 6~12장면, visual_prompt 포함.\nJSON 배열로 4개 대본 출력."
+    },
+    {
+        title: "블로그 SEO 자동 포스팅",
+        desc: "키워드 기반 SEO 최적화 블로그 글 자동 생성",
+        category: "Blog", catClass: "badge-green",
+        prompt: "다음 키워드로 SEO 최적화 블로그 포스트를 작성하세요.\n\n[Primary 키워드]: {키워드}\n[스타일]: 지식_딥다이브\n[규칙]:\n- H1 1개, H2 5~7개, H3 필요시\n- 본문 2,000~3,000자\n- 메타 설명 160자 (CTA 포함)\n- LSI 키워드 자연 삽입\n- 이미지 프롬프트 섹션별 포함\n- SEO 태그 20개 이상\n\nJSON으로 출력."
+    },
+    {
+        title: "쇼핑 리뷰 콘텐츠 자동화",
+        desc: "상품 정보에서 구매 유도형 리뷰 콘텐츠 자동 생성",
+        category: "Seller", catClass: "badge-yellow",
+        prompt: "다음 상품 정보로 '쇼핑_직관자극' 스타일의 리뷰 콘텐츠를 생성하세요.\n\n[상품명]: {상품명}\n[가격]: {가격}\n[특징]: {특징_리스트}\n\n[규칙]:\n- 감각 자극 어휘 사용 (촉감, 시각, 경험)\n- Before/After 구조\n- 가격 대비 가치 강조\n- CTA: 구매 링크 + 한정 혜택\n\nYouTube Shorts + 블로그 포스트 두 가지 버전 생성."
+    },
+    {
+        title: "롱폼 → 쇼츠 분할 추출",
+        desc: "롱폼 영상에서 쇼츠로 만들 수 있는 하이라이트 구간 자동 추출",
+        category: "분석", catClass: "badge-cyan",
+        prompt: "다음 롱폼 영상을 분석하여 YouTube Shorts로 분할 가능한 구간을 추출하세요.\n\n[영상 URL]: {url}\n[최대 쇼츠 수]: 5\n\n추출 기준:\n- 감정 강도가 높은 구간 우선\n- 각 구간 60초 이내\n- 구간별: 시작/종료 타임코드, 감정, 제목 제안\n\nJSON 배열로 출력."
+    },
+    {
+        title: "AI 아바타 프레젠테이션",
+        desc: "Google Vids AI 아바타로 한국어 프레젠테이션 영상 자동 생성",
+        category: "Production", catClass: "badge-blue",
+        prompt: "다음 내용으로 AI 아바타 프레젠테이션 영상을 생성하세요.\n\n[주제]: {주제}\n[아바타 스타일]: presenter\n[음성]: professional_kr\n\n구조:\n- 인사 + 주제 소개 (10초)\n- 핵심 포인트 3개 (각 20초)\n- 요약 + CTA (10초)\n\n각 장면에 배경 슬라이드 visual_prompt 포함.\nGoogle Vids Production Pipeline으로 실행."
+    },
+    {
+        title: "품질검사 자동 리포트",
+        desc: "생성된 콘텐츠의 23항목 품질검사 자동 실행 및 리포트 생성",
+        category: "QA", catClass: "badge-red",
+        prompt: "다음 콘텐츠 패키지에 23항목 품질검사를 실행하세요.\n\n[패키지 JSON]: {package_json}\n[포맷]: youtube_shorts\n\n검사 항목:\n- 제목, 후킹, 금지어, 장면 수, 길이, 3초 규칙\n- CTA, SEO, 해시태그, 썸네일, 메타설명\n- 감정 다양성, 전환, BGM, 카메라, 자막\n- 자연스러움, 저작권, 루프, 프롬프트 품질, 균형, 밀도\n\n결과: APPROVED/CONDITIONAL/REJECTED + 점수/100 + 개선 제안."
+    },
+    {
+        title: "멀티모델 A/B 대본 비교",
+        desc: "동일 소재를 Gemini, Claude, GPT-4o로 생성하여 최적 모델 선택",
+        category: "실험", catClass: "badge-pink",
+        prompt: "다음 소재를 3개 AI 모델로 각각 대본을 생성하고 비교 분석하세요.\n\n[소재]: {소재}\n[스타일]: 쇼츠_바이럴\n[포맷]: youtube_shorts\n\n모델별 생성:\n1. Gemini 2.5 Pro → 대본 A\n2. Claude Sonnet → 대본 B\n3. GPT-4o → 대본 C\n\n비교 기준:\n- 후킹 강도, 감정 곡선, 자연스러움\n- SEO 품질, 시각 프롬프트 구체성\n- 23항목 품질검사 점수\n\n최종 추천: 최적 모델 + 이유."
+    }
+];
+
+// === 플레이북 렌더링 (Render playbooks) ===
+function renderPlaybooks() {
+    const grid = document.getElementById('playbook-grid');
+    grid.innerHTML = playbooks.map((pb, i) => `
+        <div class="card pb-card" onclick="togglePlaybook(${i})">
+            <div class="pb-badges">
+                <span class="badge ${pb.catClass}">${pb.category}</span>
+                <span class="badge badge-purple">#${i+1}</span>
+            </div>
+            <h4 style="margin-top:10px">${pb.title}</h4>
+            <p>${pb.desc}</p>
+            <div class="pb-detail" id="pb-detail-${i}">
+                <pre>${pb.prompt}</pre>
+                <div class="pb-actions">
+                    <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();injectPrompt(${i},'claude')">Claude에 주입</button>
+                    <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();injectPrompt(${i},'gemini')">Gemini에 주입</button>
+                    <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();copyPrompt(${i})">복사</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function togglePlaybook(idx) {
+    const el = document.getElementById(`pb-detail-${idx}`);
+    el.classList.toggle('open');
+}
+
+function copyPrompt(idx) {
+    navigator.clipboard.writeText(playbooks[idx].prompt).then(() => {
+        showToast('프롬프트가 클립보드에 복사되었습니다');
+    });
+}
+
+function injectPrompt(idx, model) {
+    navigator.clipboard.writeText(playbooks[idx].prompt).then(() => {
+        const urls = {
+            claude: 'https://claude.ai/new',
+            gemini: 'https://gemini.google.com/app'
+        };
+        showToast(`프롬프트 복사 완료 — ${model === 'claude' ? 'Claude' : 'Gemini'}로 이동합니다`);
+        setTimeout(() => window.open(urls[model], '_blank'), 800);
+    });
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// === 스크롤 애니메이션 (Scroll animation) ===
+function initScrollAnim() {
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) e.target.classList.add('visible');
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+}
+
+// === 코치 프롬프트 (Coach prompts) ===
+const coachPrompts = {
+    idea: `[비즈니스 코치 - 아이디어 검증 모드]
+
+저는 새로운 사업 아이디어가 있습니다:
+[여기에 아이디어를 적어주세요]
+
+3분 해체 프로토콜로 검증해 주세요:
+1. 누구의 어떤 고통인가?
+2. 그 사람이 지금 어떻게 해결하고 있는가?
+3. 우리 방법이 왜 더 나은가?
+4. 그 사람이 돈을 낼 의향이 있는가?
+5. 첫 10명의 고객을 어디서 찾을 것인가?
+
+가장 약한 고리를 찾고, 72시간 안에 실행할 행동을 알려주세요.`,
+
+    problem: `[비즈니스 코치 - 사업 문제 진단 모드]
+
+현재 사업 상황:
+- 업종: [업종]
+- 월 매출: [매출]
+- 문제 증상: [구체적 증상]
+
+5대 요소(가치창출·마케팅·영업·가치전달·재무) 중 어디에 해당하는지 진단하고,
+측정 가능한 KPI와 72시간 안에 실행할 레버 2-3개를 알려주세요.`,
+
+    tactical: `[비즈니스 코치 - 전술 즉답 모드]
+
+구체적인 질문이 있습니다:
+[여기에 질문을 적어주세요]
+
+바로 답해주세요. 불필요한 역질문 없이 구체적 방법, 도구, 단계를 알려주세요.
+단, 질문의 전제가 전략 방향과 충돌하면 그때만 역질문해 주세요.`,
+
+    reduce: `[비즈니스 코치 - 실행 축소 모드]
+
+현재 상태: [불안/번아웃/두려움/막막함 중 선택]
+가장 부담되는 일: [여기에 적어주세요]
+
+이것을 30분 안에 할 수 있는 1개 행동으로 줄여주세요.
+"이것만 하면 오늘은 성공"으로 프레이밍해 주세요.`,
+
+    scale: `[비즈니스 코치 - 스케일업 모드 (월 1천만원+)]
+
+현재 사업 상황:
+- 업종: [업종]
+- 월 매출: [1천만원 이상]
+- 비즈니스 설명: [설명]
+- 현재 경쟁 우위: [설명]
+
+7 Powers(규모의 경제, 네트워크 효과, 카운터 포지셔닝, 전환비용, 브랜드, 독점 자원, 프로세스 파워) 중
+가장 적합한 파워를 선별하고, 72시간 안에 실행할 행동을 알려주세요.`
+};
+
+function copyCoachPrompt(mode) {
+    const prompt = coachPrompts[mode];
+    if (prompt) {
+        navigator.clipboard.writeText(prompt).then(() => {
+            showToast('코칭 프롬프트가 클립보드에 복사되었습니다');
+        });
+    }
+}
+
+// === 초기화 (Initialize) ===
+document.addEventListener('DOMContentLoaded', () => {
+    renderPlaybooks();
+    initScrollAnim();
+});
+</script>
+</body>
+</html>
