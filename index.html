@@ -186,6 +186,24 @@
         <span class="hero-badge">v4.0 — UBERMENSCH Protocol</span>
         <h1>AGENT UNIVERSITY</h1>
         <p>들어오면 자동으로 훈련된다 — UBERMENSCH 프로토콜: 기본 훈련 7레슨 + 6개 전공 실습 + 졸업 프로젝트까지 단계별로 자동 진행</p>
+        <div style="margin:28px 0 8px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;">
+            <button onclick="copyInstallCmd()" class="btn btn-primary" style="font-size:1rem;padding:14px 32px;border-radius:12px;position:relative;overflow:hidden;">
+                <span id="installBtnText">⚡ 원클릭 설치</span>
+            </button>
+            <a href="https://github.com/thinkingatelier/AI_university" target="_blank" class="btn" style="font-size:1rem;padding:14px 32px;border-radius:12px;background:rgba(139,92,246,.12);color:var(--accent-purple);border:1px solid var(--border-active);">
+                📂 GitHub 소스
+            </a>
+        </div>
+        <div id="installGuide" style="display:none;margin:16px auto 0;max-width:680px;text-align:left;background:rgba(139,92,246,.08);border:1px solid var(--border-active);border-radius:12px;padding:20px;">
+            <p style="color:var(--accent-green);font-weight:700;margin-bottom:10px;">✅ 설치 명령어가 복사되었습니다!</p>
+            <p style="color:var(--text-secondary);font-size:.9rem;margin-bottom:12px;">터미널(Terminal)을 열고 붙여넣기(Cmd+V) 하세요:</p>
+            <pre style="background:var(--bg-primary);padding:14px;border-radius:8px;overflow-x:auto;font-size:.82rem;color:var(--accent-cyan);border:1px solid var(--border-subtle);line-height:1.6;"><code>git clone https://github.com/thinkingatelier/AI_university.git
+mkdir -p .claude/skills/agent-university
+cp -r AI_university/* .claude/skills/agent-university/
+rm -rf AI_university
+echo "✅ Agent University v4.0 설치 완료!"</code></pre>
+            <p style="color:var(--text-muted);font-size:.8rem;margin-top:10px;">설치 후 Claude에게 <code style="color:var(--accent-purple);">"입학시켜줘"</code> 라고 말하면 훈련이 시작됩니다.</p>
+        </div>
         <div class="hero-stats">
             <div class="hero-stat"><div class="val">3</div><div class="lbl">단계</div></div>
             <div class="hero-stat"><div class="val">7</div><div class="lbl">기본 레슨</div></div>
@@ -1003,6 +1021,27 @@ function copyCoachPrompt(mode) {
             showToast('코칭 프롬프트가 클립보드에 복사되었습니다');
         });
     }
+}
+
+// === 원클릭 설치 ===
+function copyInstallCmd() {
+    const cmd = `git clone https://github.com/thinkingatelier/AI_university.git && mkdir -p .claude/skills/agent-university && cp -r AI_university/* .claude/skills/agent-university/ && rm -rf AI_university && echo "✅ Agent University v4.0 설치 완료!"`;
+    navigator.clipboard.writeText(cmd).then(() => {
+        const btn = document.getElementById('installBtnText');
+        btn.textContent = '✅ 복사 완료!';
+        document.getElementById('installGuide').style.display = 'block';
+        setTimeout(() => { btn.textContent = '⚡ 원클릭 설치'; }, 3000);
+    }).catch(() => {
+        // fallback
+        const ta = document.createElement('textarea');
+        ta.value = cmd;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        document.getElementById('installBtnText').textContent = '✅ 복사 완료!';
+        document.getElementById('installGuide').style.display = 'block';
+    });
 }
 
 // === 초기화 (Initialize) ===
